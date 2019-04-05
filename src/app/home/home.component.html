@@ -1,0 +1,22 @@
+<div class="container h-100 d-flex flex-column justify-content-center">
+  <div class="row">
+    <div class="col text-center">
+      <h4>Lexique des mots pompeux</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col text-center">
+      <input type="text" class="form-control" placeholder="Entrez un mot" [formControl]="myControl"
+             [matAutocomplete]="auto">
+
+
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+
+    </div>
+  </div>
+</div>
