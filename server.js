@@ -4,11 +4,13 @@ const https = require("https");
 const fs = require("fs");
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 
 app.get("/api/data", function(req, res) {
   fs.readFile((__dirname + "/src/assets/data.json"), (err, data) => {
@@ -69,7 +71,7 @@ app.put("/api/data", function(req, res) {
   });
 });
 
-app.delete("/api/data", function(req, res) {
+app.delete("/api/data/:name", function(req, res) {
   var lexicon = null;
 
   fs.readFile((__dirname + "/src/assets/data.json"), (err, data) => {
@@ -78,13 +80,13 @@ app.delete("/api/data", function(req, res) {
     }
 
     lexicon = JSON.parse(data);
-    lexicon.data = lexicon.data.filter(entry => entry.name !== req.body.name);
+    lexicon.data = lexicon.data.filter(entry => entry.name !== req.params.name);
 
     fs.writeFile((__dirname + "/src/assets/data.json"), JSON.stringify(lexicon), (err2) => {
       if (err2) {
         throw err2;
       }
-      return res.send(`deleted ${req.body.name}`);
+      return res.send(`deleted ${req.params.name}`);
     });
   });
 });

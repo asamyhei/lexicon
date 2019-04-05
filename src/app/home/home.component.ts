@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {map} from 'rxjs/operators';
 import {startWith} from 'rxjs/internal/operators/startWith';
+import {LexiconService} from '../services/lexicon.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,9 @@ export class HomeComponent implements OnInit {
   options: string[] = ['Apagogie', 'Soliloque', 'Topinambour' , 'z' , 'ba'];
   filteredOptions: Observable<string[]>;
 
-  constructor() { }
+  constructor(private lexiconService: LexiconService) {
+    this.lexiconService.getLexicon().subscribe(data => console.log(data), err => console.log(err));
+  }
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges
@@ -28,7 +31,8 @@ export class HomeComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue)).sort((a, b) => a.localeCompare(b));
+    return this.options.filter(
+      option => option.toLowerCase().includes(filterValue)).sort((a, b) => a.localeCompare(b));
   }
 
 }
