@@ -3,7 +3,8 @@ import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {map} from 'rxjs/operators';
 import {startWith} from 'rxjs/internal/operators/startWith';
-import {LexiconService} from '../services/lexicon.service';
+import {Lexicon, LexiconService} from '../services/lexicon.service';
+import {MatAutocompleteSelectedEvent} from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +14,13 @@ import {LexiconService} from '../services/lexicon.service';
 export class HomeComponent implements OnInit {
 
   myControl = new FormControl();
-  options: string[] = ['Apagogie', 'Soliloque', 'Topinambour' , 'z' , 'ba'];
-  filteredOptions: Observable<string[]>;
+  options: Lexicon[] = [];
+  filteredOptions: Observable<Lexicon[]>;
+  lexicon: Lexicon = null;
 
   constructor(private lexiconService: LexiconService) {
-    this.lexiconService.getLexicon().subscribe(data => console.log(data), err => console.log(err));
+    this.lexiconService.getLexicon()
+      .subscribe((data: any) => this.options = this.options.concat(...data.data), err => console.log(err));
   }
 
   ngOnInit() {
@@ -28,11 +31,17 @@ export class HomeComponent implements OnInit {
       );
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string): Lexicon[] {
     const filterValue = value.toLowerCase();
 
     return this.options.filter(
-      option => option.toLowerCase().includes(filterValue)).sort((a, b) => a.localeCompare(b));
+      option => option.name.toLowerCase().includes(filterValue));
   }
 
+  showDefinition($event: MatAutocompleteSelectedEvent) {
+    this.lexicon = null;
+    console.log($event.option.value);
+    this.lexicon = this.options.find(l => l.name = $event.option.value);
+    console.log(this.lexicon);
+  }
 }

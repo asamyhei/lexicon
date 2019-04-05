@@ -1,0 +1,27 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col h4 text-center">
+      Administration
+    </div>
+  </div>
+  <ul class="list-group w-100">
+    <li *ngFor="let entry of entries | slice: pageSize | slice: 0:itemsPerPage" class="list-group-item">
+      <div class="row">
+        {{entry.name}}
+        <div class="col">
+          <div class="float-right">
+            <button class="btn" type="button"><i class="material-icons">create</i>
+            </button>
+            <button class="btn" type="button" (click)="deleteEntry(entry)">
+              <i class="material-icons align-self-center">delete</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div class="row justify-content-center mt-4">
+    <ngb-pagination (pageChange)="onPageChange(currentPage)" [(page)]="currentPage" [collectionSize]="entries.length"
+                    [pageSize]="itemsPerPage"></ngb-pagination>
+  </div>
+</div>

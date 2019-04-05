@@ -9,14 +9,17 @@
     <div class="col text-center">
       <input type="text" class="form-control" placeholder="Entrez un mot" [formControl]="myControl"
              [matAutocomplete]="auto">
-
-
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option}}
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="showDefinition($event)">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
+          {{option.name}}
         </mat-option>
       </mat-autocomplete>
+    </div>
+  </div>
 
+  <div class="row my-2 border" *ngIf="lexicon">
+    <div class="col">
+     {{lexicon.name}} : <span class="font-italic" style="color: gray">{{lexicon.description}}</span>
     </div>
   </div>
 </div>
