@@ -86,7 +86,7 @@ app.delete("/api/data/:name", function(req, res) {
       if (err2) {
         throw err2;
       }
-      return res.send();
+      return res.send(JSON.stringify(req.params.name));
     });
   });
 });

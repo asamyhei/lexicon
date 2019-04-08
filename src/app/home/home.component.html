@@ -17,9 +17,12 @@
     </div>
   </div>
 
-  <div class="row my-2 border" *ngIf="lexicon">
+  <div class="row my-5 border d-block" *ngIf="lexicon">
     <div class="col">
-     {{lexicon.name}} : <span class="font-italic" style="color: gray">{{lexicon.description}}</span>
+     {{lexicon.name}}
+    </div>
+    <div class="col">
+      <span class="font-italic" style="color: gray">{{lexicon.description}}</span>
     </div>
   </div>
 </div>

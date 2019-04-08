@@ -8,14 +8,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatAutocompleteModule, MatInputModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { AdminComponent } from './admin/admin.component';
+import {AdminComponent, ModalAddEntryComponent, ModalUpdateEntryComponent} from './admin/admin.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AdminComponent
+    AdminComponent,
+    ModalUpdateEntryComponent,
+    ModalAddEntryComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,9 +28,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [],
+  entryComponents: [ModalUpdateEntryComponent, ModalAddEntryComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -26,6 +26,7 @@ export class LexiconService {
   putLexicon(lexicon: Lexicon) {
     return this.http.put(environment.api, lexicon);
   }
+
   deleteLexicon(lexicon: Lexicon) {
     return this.http.delete(`${environment.api}/${lexicon.name}`);
   }

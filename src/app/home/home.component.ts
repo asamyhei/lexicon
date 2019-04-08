@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {map} from 'rxjs/operators';
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private lexiconService: LexiconService) {
     this.lexiconService.getLexicon()
-      .subscribe((data: any) => this.options = this.options.concat(...data.data), err => console.log(err));
+      .subscribe((data: any) => this.options = data.data, err => console.log(err));
   }
 
   ngOnInit() {
@@ -31,17 +31,15 @@ export class HomeComponent implements OnInit {
       );
   }
 
+  showDefinition($event: MatAutocompleteSelectedEvent) {
+    this.lexicon = null;
+    this.lexicon = this.options.find(l => l.name = $event.option.value);
+  }
+
   private _filter(value: string): Lexicon[] {
     const filterValue = value.toLowerCase();
 
     return this.options.filter(
       option => option.name.toLowerCase().includes(filterValue));
-  }
-
-  showDefinition($event: MatAutocompleteSelectedEvent) {
-    this.lexicon = null;
-    console.log($event.option.value);
-    this.lexicon = this.options.find(l => l.name = $event.option.value);
-    console.log(this.lexicon);
   }
 }
