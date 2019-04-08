@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
 
   showDefinition($event: MatAutocompleteSelectedEvent) {
     this.lexicon = null;
-    this.lexicon = this.options.find(l => l.name = $event.option.value);
+    this.lexicon = this.options.find(l => l.name === $event.option.value);
   }
 
   private _filter(value: string): Lexicon[] {
