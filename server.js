@@ -98,11 +98,11 @@ app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname + "/dist/pompous-lexicon/index.html"));
 });
 
-setInterval(function() {
+/*setInterval(function() {
   https.get("https://pompous-lexicon.herokuapp.com", function(res) {
     var a;
   });
-}, 300000); // every 5 minutes (300000)
+}, 300000); // every 5 minutes (300000)*/
 
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
